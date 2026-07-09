@@ -1,3 +1,3 @@
-# solo_poker_ai
+# Solo Poker AI
 
-Kaigi on Rails 2026のデモ用AIです。
+デモ用AIです。
