@@ -1,9 +1,10 @@
 require_relative "agent"
 require_relative "states_builder"
 require_relative "reward_calculator"
+require_relative "game_constants"
 
 class Env
-  FINAL_ROUND_NUMBER = 5
+  FINAL_ROUND_NUMBER = GameConstants::FINAL_ROUND_NUMBER
 
   def initialize(agent: Agent.new)
     @agent = agent
@@ -24,7 +25,7 @@ class Env
   def step
     return if @done
 
-    states = StatesBuilder.call(@hands, @graveyards, @decks)
+    states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
     action = @agent.get_action(states)
     discard(action)
 
@@ -33,7 +34,7 @@ class Env
     @done = true if @draw_count >= FINAL_ROUND_NUMBER
 
     draw unless @done
-    next_states = StatesBuilder.call(@hands, @graveyards, @decks)
+    next_states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
 
     [states, action, reward, next_states, @done]
   end
@@ -41,10 +42,10 @@ class Env
   private
 
   def build_decks
-    h_cards = (0..6).to_a
-    d_cards = (10..16).to_a
-    s_cards = (20..26).to_a
-    c_cares = (30..36).to_a
+    h_cards = (101..113).to_a
+    d_cards = (201..213).to_a
+    s_cards = (301..313).to_a
+    c_cares = (401..413).to_a
     (h_cards + d_cards + s_cards + c_cares).shuffle
   end
 
