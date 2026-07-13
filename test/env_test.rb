@@ -14,7 +14,7 @@ class FixedActionAgent
 end
 
 class EnvTest < Minitest::Test
-  FULL_DECK = ((0..6).to_a + (10..16).to_a + (20..26).to_a + (30..36).to_a).freeze
+  FULL_DECK = ((101..113).to_a + (201..213).to_a + (301..313).to_a + (401..413).to_a).freeze
 
   def setup
     @env = Env.new
@@ -24,7 +24,7 @@ class EnvTest < Minitest::Test
     @env.reset
 
     assert_equal 6, hands.size
-    assert_equal 22, decks.size
+    assert_equal 46, decks.size
     assert_equal [], graveyards
     assert_equal 1, draw_count
     refute done
@@ -67,7 +67,7 @@ class EnvTest < Minitest::Test
     assert_equal Env::FINAL_ROUND_NUMBER, graveyards.size
     assert_equal 5, hands.size
     assert_equal 5, draw_count
-    assert_equal 18, decks.size
+    assert_equal 42, decks.size
     assert_equal FULL_DECK.sort, (hands + decks + graveyards).sort
   end
 

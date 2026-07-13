@@ -1,9 +1,14 @@
 require_relative "agent"
 require_relative "states_builder"
 require_relative "reward_calculator"
+require_relative "game_constants"
 
 class Env
-  FINAL_ROUND_NUMBER = 5
+  HEART_SUIT_NUMBER = GameConstants::HEART_SUIT_NUMBER
+  DIAMOND_SUIT_NUMBER = GameConstants::DIAMOND_SUIT_NUMBER
+  SPADE_SUIT_NUMBER = GameConstants::SPADE_SUIT_NUMBER
+  CLOVER_SUIT_NUMBER = GameConstants::CLOVER_SUIT_NUMBER
+  FINAL_ROUND_NUMBER = GameConstants::FINAL_ROUND_NUMBER
 
   def initialize(agent: Agent.new)
     @agent = agent
@@ -41,10 +46,10 @@ class Env
   private
 
   def build_decks
-    h_cards = (0..6).to_a
-    d_cards = (10..16).to_a
-    s_cards = (20..26).to_a
-    c_cares = (30..36).to_a
+    h_cards = (101..113).to_a
+    d_cards = (201..213).to_a
+    s_cards = (301..313).to_a
+    c_cares = (401..413).to_a
     (h_cards + d_cards + s_cards + c_cares).shuffle
   end
 
