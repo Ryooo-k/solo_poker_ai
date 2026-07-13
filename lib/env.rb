@@ -4,10 +4,6 @@ require_relative "reward_calculator"
 require_relative "game_constants"
 
 class Env
-  HEART_SUIT_NUMBER = GameConstants::HEART_SUIT_NUMBER
-  DIAMOND_SUIT_NUMBER = GameConstants::DIAMOND_SUIT_NUMBER
-  SPADE_SUIT_NUMBER = GameConstants::SPADE_SUIT_NUMBER
-  CLOVER_SUIT_NUMBER = GameConstants::CLOVER_SUIT_NUMBER
   FINAL_ROUND_NUMBER = GameConstants::FINAL_ROUND_NUMBER
 
   def initialize(agent: Agent.new)
