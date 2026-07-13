@@ -29,7 +29,7 @@ class Env
   def step
     return if @done
 
-    states = StatesBuilder.call(@hands, @graveyards, @decks)
+    states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
     action = @agent.get_action(states)
     discard(action)
 
@@ -38,7 +38,7 @@ class Env
     @done = true if @draw_count >= FINAL_ROUND_NUMBER
 
     draw unless @done
-    next_states = StatesBuilder.call(@hands, @graveyards, @decks)
+    next_states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
 
     [states, action, reward, next_states, @done]
   end

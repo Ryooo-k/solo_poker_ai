@@ -43,10 +43,10 @@ class EnvTest < Minitest::Test
 
     states, action, reward, next_states, episode_done = @env.step
 
-    assert_equal [], states
+    assert_equal 142, states.size
     assert_equal 2, action
     assert_equal 0, reward
-    assert_equal [], next_states
+    assert_equal 142, next_states.size
     refute episode_done
 
     assert_equal expected_old_hands + [before_decks.first], hands
