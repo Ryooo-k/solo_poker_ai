@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
+require "minitest/mock"
 require_relative "../lib/states_builder"
 
 class StatesBuilderTest < Minitest::Test
