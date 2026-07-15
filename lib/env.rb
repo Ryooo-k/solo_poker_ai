@@ -6,7 +6,7 @@ require_relative "game_constants"
 class Env
   FINAL_ROUND_NUMBER = GameConstants::FINAL_ROUND_NUMBER
 
-  def initialize(agent: Agent.new)
+  def initialize(agent:)
     @agent = agent
   end
 

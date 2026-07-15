@@ -17,7 +17,7 @@ class EnvTest < Minitest::Test
   FULL_DECK = ((101..113).to_a + (201..213).to_a + (301..313).to_a + (401..413).to_a).freeze
 
   def setup
-    @env = Env.new
+    @env = Env.new(agent: FixedActionAgent.new(0))
   end
 
   def test_reset_starts_new_episode
