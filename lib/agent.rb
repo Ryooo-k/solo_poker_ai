@@ -4,6 +4,8 @@ require_relative "q_net"
 require_relative "replay_buffer"
 
 class Agent
+  attr_reader :gamma
+
   def initialize(parameters)
     @gamma = parameters[:gamma]
     @lr = parameters[:lr]
