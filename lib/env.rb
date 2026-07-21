@@ -8,6 +8,7 @@ class Env
 
   def initialize(agent:)
     @agent = agent
+    @gamma = agent.gamma
   end
 
   def reset
@@ -18,24 +19,27 @@ class Env
     @done = false
 
     5.times { |_| @hands << @decks.shift }
-    @old_hands = @hands.dup
     draw
   end
 
   def step
     return if @done
 
-    states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
+    before_hands = @hands.dup
+    states = StatesBuilder.call(before_hands, @graveyards, @decks, @draw_count)
     action = @agent.get_action(states)
     discard(action)
 
-    reward = RewardCalculator.call(@hands, @old_hands)
-    @old_hands = @hands.dup
-    @done = true if @draw_count >= FINAL_ROUND_NUMBER
+    if game_end?
+      @done = true
+      reward = RewardCalculator.calculate_final_reward(@hands)
+      reward += RewardCalculator.calculate_terminal_shaping_reward(before_hands)
+    else
+      draw
+      reward = RewardCalculator.calculate_shaping_reward(before_hands, @hands, gamma: @gamma)
+    end
 
-    draw unless @done
     next_states = StatesBuilder.call(@hands, @graveyards, @decks, @draw_count)
-
     [states, action, reward, next_states, @done]
   end
 
@@ -57,5 +61,9 @@ class Env
   def discard(index)
     discarded_card = @hands.delete_at(index.to_i)
     @graveyards << discarded_card
+  end
+
+  def game_end?
+    @draw_count >= FINAL_ROUND_NUMBER
   end
 end

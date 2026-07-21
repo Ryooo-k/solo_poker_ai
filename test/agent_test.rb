@@ -5,6 +5,12 @@ require "minitest/spec"
 require_relative "../lib/agent"
 
 describe Agent do
+  it "初期化時にgammaを設定する" do
+    agent = Agent.new(parameters(gamma: 0.95))
+
+    assert_equal 0.95, agent.gamma
+  end
+
   it "初期化時にQネットワークとtargetネットワークを同期する" do
     agent = Agent.new(parameters)
 
